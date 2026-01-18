@@ -1,0 +1,34 @@
+---
+title: "Assignment 2 - Kumar"
+author: "Sneha Kumar"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Model: Understanding Potential Groundwater Availability
+Modeling Goal: Understanding - how do changes in the different parameters affect groundwater availability over time
+
+Key Inputs: Groundwater availability is determined by subtracting the amount of water lost from the aquifer from the amount of water existing or inputted into the aquifer. The key inputs for this model are:
+
+Existing Water
+- The existing or original amount of groundwater when the model begins
+
+Added Water
+- The amount of rainfall/precipitation in the area
+- The amount of surface water runoff in the area
+- The amount of surface water that can be diverted into a recharge basin or flood zone (based on the other uses of surface water, and the location of recharge basins and flood zones in relation to the potential location of the surface water)
+- The amount of water infiltrating into the aquifer (based on the infiltration/absorption rate, which depends on the type of soil, the amount of organic matter, the area and holding capacity of the recharge basin or flood plain, and the frequency of rain events which affects saturation. Also dependent on weather and climatic conditions, such as too much sun or too much wind).
+
+Lost Water
+- The amount of surface water lost to evaporation, thus cannot infiltrate into the aquifer (based on the average temperature and number of sunlight hours)
+- The amount of surface water lost to natural uptake and evapotranspiration (based on the type and species of vegetation, age of vegetation, average uptake and evapotranspiration rate, changes over the course of a year)
+- The amount of groundwater lost to natural uptake and evapotranspiration (based on the type and species of vegetation, age of vegetation, average uptake and evapotranspiration rate, changes over the course of a year)
+
+Parameters:
+
+Outputs:
+
+Conceptual Model: The conceptual model for this predictive model is shown on the following page.

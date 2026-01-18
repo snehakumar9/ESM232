@@ -79,3 +79,6 @@ presentation/
 *.fdb_latexmk
 *.synctex.gz
 
+.Rproj.user
+.DS_Store
+.quarto
