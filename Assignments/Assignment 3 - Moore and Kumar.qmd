@@ -1,13 +1,13 @@
 ---
-title: "HW3"
+title: "ESM 232 Assignment 3"
 format: html
 author: "Ella Moore and Sneha Kumar"
 ---
 
 Read the climate data from the txt file into a data table 
 ```{r}
+library(here)
 clim_data<-read.table(here("Assignments/clim.txt"), header = T)
-
 ```
 
 Clean the climate data into two new data frames 
@@ -21,7 +21,6 @@ feb_av_min_temp<- clim_data%>%
   group_by(year) %>% 
   summarise(mean_min_temp_feb = mean(tmin_c, na.rm = TRUE)) %>%
     select(-year)
-
 
 #Calculate an average precipitation in Jan 
 jan_av_percip<- clim_data%>%
