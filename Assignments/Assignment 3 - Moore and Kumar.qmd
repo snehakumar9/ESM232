@@ -35,12 +35,21 @@ avg_precip <- jan_av_precipitation |>
   group_by(year) |>
   summarize(avg_precip = mean(precip, na.rm = TRUE))
 avg_precip
+
+# Call the function located in the R folder
+source(here("R/HW3.R"))
+
+# Merge the data frames into one and create new blank column
+inputs <- merge(avg_min_temp, avg_precip, by="year") |>
+  mutate(yield = yield_anomaly(avg_temp,avg_precip))
+
+inputs
 ```
 
-Call the function located in the R folder
 ```{r}
-source(here("R/HW3.R"))
-  
-yield_anomaly_summary<- HW3(min_temp=feb_av_min_temp, av_percip=jan_av_percip)
+#Create a summary Table for the yield anomaly min, max, and mean
+mean(inputs$yield)
+max(inputs$yield)
+min(inputs$yield)
 ```
 
