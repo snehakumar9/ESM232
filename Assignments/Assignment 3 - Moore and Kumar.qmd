@@ -7,28 +7,34 @@ author: "Ella Moore and Sneha Kumar"
 Read the climate data from the txt file into a data table 
 ```{r}
 library(here)
+library(dplyr)
 clim_data<-read.table(here("Assignments/clim.txt"), header = T)
 ```
-
 Clean the climate data into two new data frames 
 The first includes only the average minimum temperature (C) for the month of February 
 The second contains the average precipitation (mm) for the month of January
 ```{r}
+#Calculate the annual average minimum temp in Feb 
+feb_min_temp <- clim_data |>
+  filter(month == "2") |>
+  select(day, month, year, tmin_c)
+feb_min_temp
 
-feb_av_min_temp<- clim_data%>%
-  filter(month==2) %>%
-  select(day, month, year, tmin_c)%>%
-  group_by(year) %>% 
-  summarise(mean_min_temp_feb = mean(tmin_c, na.rm = TRUE)) %>%
-    select(-year)
+avg_min_temp <- feb_min_temp |>
+  group_by(year) |>
+  summarize(avg_temp = mean(tmin_c, na.rm = TRUE))
+avg_min_temp
 
-#Calculate an average precipitation in Jan 
-jan_av_percip<- clim_data%>%
-  filter(month==1) %>%
-  select(day, month, year, precip)%>%
-  group_by(year) %>% 
-  summarise(mean_percip_jan = mean(precip, na.rm = TRUE)) %>%
-  select(-year)
+#Calculate the annual average precipitation in Jan 
+jan_av_precipitation <- clim_data |>
+  filter(month == "1") |>
+  select(day, month, year, precip)
+jan_av_precipitation
+
+avg_precip <- jan_av_precipitation |>
+  group_by(year) |>
+  summarize(avg_precip = mean(precip, na.rm = TRUE))
+avg_precip
 ```
 
 Call the function located in the R folder
