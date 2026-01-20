@@ -4,13 +4,14 @@ format: html
 author: "Ella Moore and Sneha Kumar"
 ---
 
-Read the climate data from the txt file into a data table 
+Step 1: Read the climate data from the txt file into a data table 
 ```{r}
 library(here)
 library(dplyr)
 clim_data<-read.table(here("Assignments/clim.txt"), header = T)
 ```
-Clean the climate data into two new data frames 
+
+Step 2: Clean the climate data into two new data frames 
 The first includes only the average minimum temperature (C) for the month of February 
 The second contains the average precipitation (mm) for the month of January
 ```{r}
@@ -26,30 +27,38 @@ avg_min_temp <- feb_min_temp |>
 avg_min_temp
 
 #Calculate the annual average precipitation in Jan 
-jan_av_precipitation <- clim_data |>
+jan_precipitation <- clim_data |>
   filter(month == "1") |>
   select(day, month, year, precip)
-jan_av_precipitation
+jan_precipitation
 
-avg_precip <- jan_av_precipitation |>
+precipsum <- jan_precipitation |>
   group_by(year) |>
-  summarize(avg_precip = mean(precip, na.rm = TRUE))
-avg_precip
-
+  summarize(sumprecip = sum(precip, na.rm = TRUE))
+precipsum
+```
+Step 3: Call the function and run it to fill the data frame to identify annual yield anomalies
+```{r}
 # Call the function located in the R folder
 source(here("R/HW3.R"))
 
 # Merge the data frames into one and create new blank column
-inputs <- merge(avg_min_temp, avg_precip, by="year") |>
-  mutate(yield = yield_anomaly(avg_temp,avg_precip))
+inputsandoutputs <- merge(avg_min_temp, precipsum, by="year") |>
+  mutate(yieldvalues = NA)
 
-inputs
+yields <- yield_anomaly(inputsandoutputs$avg_temp, inputsandoutputs$sumprecip)
+
+inputsandoutputs$yieldvalues <- yields$yield
+
+inputsandoutputs
 ```
 
+Step 4: Create a summary table to show the mean, minimum, and maximum yield anomaly values
 ```{r}
-#Create a summary Table for the yield anomaly min, max, and mean
-mean(inputs$yield)
-max(inputs$yield)
-min(inputs$yield)
+summarytable <- data.frame(
+  StatisticType = c("Mean Yield Anomaly", "Min Yield Anomaly", "Max Yield Anomaly"),
+  Values = c(yields$mean, yields$min, yields$max)
+)
+print(summarytable)
 ```
 
