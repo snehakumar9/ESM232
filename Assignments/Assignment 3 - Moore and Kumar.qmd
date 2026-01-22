@@ -3,11 +3,20 @@ title: "ESM 232: Assignment 3"
 format: html
 author: "Ella Moore and Sneha Kumar"
 ---
-
-Step 1: Read the climate data from the txt file into a data table 
 ```{r, warning=FALSE, message=FALSE, results='hide'}
 library(here)
 library(dplyr)
+library(knitr)
+```
+
+The following image depicts the annual almond yield model used in this assignment.
+```{r}
+jpeg <- knitr::include_graphics(here("Assignments","yieldmodel.jpeg"))
+jpeg
+```
+
+Step 1: Read the climate data from the txt file into a data table 
+```{r, warning=FALSE, message=FALSE, results='hide'}
 clim_data<-read.table(here("Assignments/clim.txt"), header = T)
 ```
 
